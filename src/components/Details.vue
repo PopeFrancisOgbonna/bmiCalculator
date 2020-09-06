@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'hide':isActive == 0 ? false : true} ">
     <h3>Ensure You Enter Your Details Correctly.</h3>
     <form>
       <label for="name">Name:</label>
@@ -8,7 +8,7 @@
       <input type="number" v-model="weight" name="weight" placeholder="Your weight in Kg" required/>
       <label for="height">Height (m):</label>
       <input type="number" v-model="height" name="height" placeholder="Your height in meters" required/>
-      <br/>
+      <p class="errMsg">{{error}}</p>
       <input id="send" type="button" v-on:click="clear" value="Calculate">
     </form>
   </div>
@@ -17,27 +17,34 @@
 <script>
 export default {
   name: 'Details',
+  props: ['isActive'],
   data: () => {
      return {
       userName: '',
       weight: '',
       height: '',
-      result: ''
+      result: '',
+      error: ''
     }
   },
   methods: {
     clear(e){
       e.preventDefault();
-      this.result = this.weight * (this.height * this.height);
-      const bmi = {
-        'name': this.userName,
-        'results': this.result
+      if(this.userName =='' || this.weight =='' || this.height ==''){
+         return this.error ="Please Fill out all Fields!";
+      }else{
+        this.result = this.weight * (this.height * this.height);
+        const bmi = {
+          'name': this.userName,
+          'results': this.result
+        }
+        this.$emit('calculated',bmi);
+        this.userName = '';
+        this.weight = '';
+        this.height = '';
+        this.error ='';
+        this.$emit('toggle');
       }
-      this.$emit('calculated',bmi);
-      this.userName = '';
-      this.weight = '';
-      this.height = '';
-    
     }
   }
 }
@@ -76,5 +83,8 @@ export default {
   }
   #send:hover {
     cursor: pointer;
+  }
+  .errMsg {
+    color: rgb(252, 4, 4);
   }
 </style>

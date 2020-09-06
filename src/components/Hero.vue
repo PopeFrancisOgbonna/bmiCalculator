@@ -1,5 +1,5 @@
 <template>
-  <div class="div" :class="{hide:showHero}">
+  <div class="div" :class="{'hide':isActive == null ? false : true}">
     <div class="heroContent">
       <h1>What is BMI?</h1>
       <p>
@@ -14,7 +14,7 @@
         underweight; a value above 25 indicates that you may be 
         overweight.
       </p>
-      <button @click="remove">Calculate Your BMI Now!</button>
+      <button @click="$emit('toggle')">Calculate Your BMI Now!</button>
     </div>
   </div>
 </template>
@@ -22,13 +22,7 @@
 <script>
 export default {
   name: 'Hero',
-  props: ['showHero'],
-  methods: {
-    remove(e){
-      e.preventDefault();
-      this.showHero = !this.showHero;
-    }
-  }
+  props: ['isActive']
 }
 </script>
 
@@ -67,8 +61,5 @@ export default {
     text-align: left;
     color: #251d1d;
     font-size: 1.3em;
-  }
-  .hide {
-    display: none;
   }
 </style>

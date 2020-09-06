@@ -18,6 +18,10 @@ export default {
 </script>
 
 <style>
+body{
+  margin: 0 5px;
+  padding: 0;
+}
   #app {
     text-align: center;
   }

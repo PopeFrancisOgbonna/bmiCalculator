@@ -1,8 +1,12 @@
 <template>
   <div>
-  <Hero :showHero="showHero"/>
-  <Details v-on:calculated="result" :showDetails="showDetails"/>
-  <ResultContainer @back="back" :name="name" :bmiValue="bmiValue" :showResult="showResult"/>
+  <Hero :isActive="isActive" @toggle="toggle"/>
+  <Details v-on:calculated="result" :isActive="isActive" @toggle="toggle"/>
+  <ResultContainer 
+    :class="{'hide':isActive != 1 ? true : false}" 
+    :name="name" :bmiValue="bmiValue" :isActive="isActive" 
+    @back="back" @toggle="toggle"
+  />
   <Footer/>
   </div>
 </template>
@@ -24,9 +28,7 @@ export default {
     return {
       name: '',
       bmiValue: '',
-      showHero: false,
-      showDetails: true,
-      showResult: true
+      isActive: null
     }
   },
   methods: {
@@ -34,9 +36,11 @@ export default {
       this.name = bmi.name;
       this.bmiValue = bmi.results
     },
-    back(e){
-      e.preventDefault();
-      this.showHero = false;
+    toggle(){
+      this.isActive == null ? this.isActive = 0 : this.isActive == 0 ? this.isActive = 1 : this.isActive = 0;
+    },
+    back(){
+      this.isActive = null;
     }
   }
 }

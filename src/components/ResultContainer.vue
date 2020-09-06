@@ -1,7 +1,9 @@
 <template>
   <div>
-    <Result :name="name" :bmiValue="bmiValue"/>
-    <Recommendation @back="$emit('back')"/>
+    <Result :name="name" :bmiValue="bmiValue" />
+    <Recommendation :isAtive="isActive"
+      @back="$emit('back')" @toggle="$emit('toggle')"
+    />
   </div>
 </template>
 
@@ -14,7 +16,15 @@ export default {
     Result,
     Recommendation
   },
-  props:['name','bmiValue']
+  props:['name','bmiValue','isActive'],
+  data(){
+    return{
+
+    }
+  },
+  methods: {
+    
+  }
 }
 </script>
 

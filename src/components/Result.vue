@@ -33,7 +33,7 @@
 <script>
 export default {
   name: 'Result',
-  props:['name','bmiValue']
+  props:['name','bmiValue','isActive']
 }
 </script>
 

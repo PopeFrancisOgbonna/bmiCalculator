@@ -48,14 +48,15 @@
     </div>
     <div>
       <button @click="$emit('back')">Back</button>
-      <button>Perform another Calculation</button>
+      <button @click="$emit('toggle')">Perform another Calculation</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Recommendation'
+  name: 'Recommendation',
+  props: ['isActive']
 }
 </script>
 
